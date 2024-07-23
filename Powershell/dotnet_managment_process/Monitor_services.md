@@ -1,0 +1,2 @@
+# This script not only monitors the CPU and memory utilization of the service but also takes action by restarting or stopping the service based on your choice. It was implemented as a solution to avoid human monitoring of the services as a workaround for issues related to how the service manages resource usage and cleanup after completion ,
+# The script operates based on the memory or CPU threshold usage values you specify
