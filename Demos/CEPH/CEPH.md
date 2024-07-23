@@ -1,4 +1,4 @@
-# This solution start in cloud but as this a demo so managment asked for me to make it self hosted for deduct cost
+# This solution initially started in the cloud. However, since it is a demo, management has requested that it be self-hosted to reduce costs.
 # this brief for CEPH solution:
 **Ceph is an open-source storage platform designed to provide scalable and reliable storage solutions. It integrates object, block, and file storage into a unified system, offering high performance and fault tolerance,The implment will be a master and 2 nodes ,I used vagrant to up all VMs with using inline shell to make the installation**
 ```console
