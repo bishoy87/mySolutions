@@ -1,8 +1,11 @@
-**The menu script provides an interactive way to select and run deployment scripts.
-The deployment script automates the detailed steps needed to deploy a package across multiple servers.
-Together, they streamline the deployment process by allowing the user to easily select and execute complex deployment tasks.**
+# Purpose and Use Case
+**This script is designed to streamline the process of running multiple deployment scripts by providing a simple, interactive menu for any users need to make a deployment without linux knowlwdge It is useful in scenarios where multiple deployment steps need to be executed, and the user can select and run them in any order or combination. This can be especially helpful for system administrators or DevOps engineers managing multiple deployment tasks**
+**- The menu script provides an interactive way to select and run deployment scripts.**
+**- The deployment script automates the detailed steps needed to deploy a package across multiple servers.**
+**- Together, they streamline the deployment process by allowing the user to easily select and execute complex deployment tasks.**
 
-Workflow Overview
+**Workflow Overview:**
+
 # Stage 1: Menu Script
 - Displays a menu for selecting deployment scripts.
 - Allows the user to choose and run specific deployment scripts.
