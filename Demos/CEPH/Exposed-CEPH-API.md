@@ -10,13 +10,14 @@ we have the following servers:
 ```console
 ssh -i "azurevmkey.pem" -N -R 8081:\*:8091 ec2user@<ec2publicip>
 ```
-
+```markdown
 azurevmkey.pem : EC2 key
 -R : reverse tunnel
 -N : none interactive session
 8081 : tunnel port
 8091 : cephgateway port which is that we need to expose
 <azurepublicip> : EC2 Elastic IP
+```
 
 # Create this command in bash then create systemd service to be sure it will be still up and running and will restart if crashed
 **Bash script:**
