@@ -1,6 +1,8 @@
-# the installation of vaultwarden will be with docker with maraia db without docker
+**the installation of vaultwarden will be with docker**
+**Install maraia db without docker and will**
+**Install nginx and use it as proxyserver**
 
-# install and confgure marai DB
+**Install and configure marai DB**
 sudo apt update
 sudo apt install mariadb-server
 sudo mysql_secure_installation
@@ -13,32 +15,34 @@ You can do it by editing the MariaDB default configuration file. Look for "bind-
 nano /etc/mysql/my.cnf
 sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
-
 bind-address = 0.0.0.0
-
 Change the value of the bind-address from 127.0.0.1 to 0.0.0.0 so that MariaDB server accepts connections on all host IPv4 interfaces.
 
+```console
 sudo systemctl restart mariadb
+```
 
 # Grant Access to a User from a Remote System
 In this section, we will create a new database named wpdb and a user named wpuser, and grant access to the remote system to connect to the database wpdb as user wpuser.
 First, log in to the MariaDB shell with the following command:
+```console
 mysql -u admin -p
+```
 
 Provide your admin (root) password as shown in the Webdock backend and when you get the prompt create a database and user with the following command:
-
+```console
 MariaDB [(none)]> CREATE DATABASE vaultwarden;
 MariaDB [(none)]> CREATE USER  'mysqlget'@'localhost'IDENTIFIED BY 'password';
-
+```
 Next, you will need to grant permissions to the remote system with IP address 208.117.84.50 to connect to the database named wpdb as user wpuser. You can do it with the following command:
-
+```console
 MariaDB [(none)]> GRANT ALL ON wpdb.* to 'wpuser'@'208.117.84.50'IDENTIFIED BY 'password'WITH GRANT OPTION;
-
+```
 Next, flush the privileges and exit from the MariaDB shell with the following command:
-
+```console
 MariaDB [(none)]> FLUSH PRIVILEGES;
 MariaDB [(none)]> EXIT;
-
+```
 
 A brief explanation of each parameter is shown below:
     • wpdb: It is the name of the MariaDB database that the user wants to connect to.
@@ -46,18 +50,19 @@ A brief explanation of each parameter is shown below:
     • 208.117.84.50: It is the IP address of the remote system from which the user wants to connect.
     • password: It is the password of the database user.
 If you want to grant remote access on all databases for wpuser, run the following command:
-
+```console
 MariaDB [(none)]> GRANT ALL ON *.* to 'wpuser'@'208.117.84.50'IDENTIFIED BY 'password'WITH GRANT OPTION;
-
+```
 If you want to grant access to all remote IP addresses on wpdb as wpuser, use % instead of IP address (208.117.84.50) as shown below:
-
+```console
 MariaDB [(none)]> GRANT ALL ON wpdb.* to 'wpuser'@'%'IDENTIFIED BY 'password'WITH GRANT OPTION;
-
+```
 If you want to grant access to all IP addresses in the subnet 208.117.84.0/24 on wpdb as user wpuser, run the following command:
+```console
 MariaDB [(none)]> GRANT ALL ON wpdb.* to 'wpuser'@'208.117.84.%'IDENTIFIED BY 'password'WITH GRANT OPTION;
+```
 
-
-# vault warden dockerfile
+**Vaultwarden dockerfile**
 version: "3.7"
 services:
  vaultwarden:
@@ -79,6 +84,56 @@ services:
 openssl rand -base64 48
 docker run -d --name vaultwarden -e ADMIN_TOKEN=LiDONkdWRbN9dVA6O7V76q5Q1GAie9MQ7ipTqJl9VE8xamZ6CBsx7/pwNR5SLRjr -v /vw-data/:/data/  -p 800:80  vaultwarden/server:latest
 
-# refrence: 
+
+**Configure nginx**
+
+```console
+server {
+    listen 80 default_server;
+    server_name vault.com www.vault.com;
+
+location / {
+    root /var/www/html;
+    index  vault.com.html;
+}
+
+    return 301 https://vault.com/vault$request_uri;
+
+}
+
+server {
+    listen 443;
+    server_name vault.get.com ;
+
+    # SSL Certificate
+    ssl on;
+    ssl_certificate /home/vagrant/certfolder/vault.crt;
+    ssl_certificate_key /home/vagrant/certfolder/vault.key;
+
+location / {
+        return 301 /vault/;
+}
+
+location /vault/ {
+        # Proxy requests to the backend server
+        proxy_pass http://localhost:8080/;
+                 }
+
+location /admin {
+        proxy_pass http://localhost:8080/admin;
+       }
+
+location /vw_static/ {
+        proxy_pass  http://localhost:8080/vw_static/;
+          }
+
+}
+
+```
+
+
+
+# Refrence: 
 https://github.com/dani-garcia/vaultwarden 
 https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page 
+https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04 
