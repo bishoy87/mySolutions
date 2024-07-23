@@ -81,8 +81,12 @@ services:
 
 
 # Enabling admin page
+```console
 openssl rand -base64 48
+```
+```markdown
 docker run -d --name vaultwarden -e ADMIN_TOKEN=LiDONkdWRbN9dVA6O7V76q5Q1GAie9MQ7ipTqJl9VE8xamZ6CBsx7/pwNR5SLRjr -v /vw-data/:/data/  -p 800:80  vaultwarden/server:latest
+```
 
 
 **Configure nginx**
@@ -134,6 +138,6 @@ location /vw_static/ {
 
 
 # Refrence: 
-https://github.com/dani-garcia/vaultwarden 
+https://github.com/dani-garcia/vaultwarden
 https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page 
 https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04 
