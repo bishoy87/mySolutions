@@ -1,6 +1,7 @@
 **batch file for installing dotnet service by utilized nssm (the Non-Sucking Service Manager)**
 
 # the below is .bat file
+```console
 @echo off
 
 set "params=%*"
@@ -63,6 +64,7 @@ pause
 :Exit.cmd
 exit
 )
+```
 # End of script
 
 
