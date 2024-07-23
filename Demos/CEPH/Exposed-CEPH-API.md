@@ -16,7 +16,7 @@ azurevmkey.pem : EC2 key
 -N : none interactive session
 8081 : tunnel port
 8091 : cephgateway port which is that we need to expose
-<azurepublicip> : EC2 Elastic IP
+<ec2publicip> : EC2 Elastic IP
 ```
 
 # Create this command in bash then create systemd service to be sure it will be still up and running and will restart if crashed
