@@ -63,6 +63,7 @@ MariaDB [(none)]> GRANT ALL ON wpdb.* to 'wpuser'@'208.117.84.%'IDENTIFIED BY 'p
 ```
 
 **Vaultwarden dockerfile**
+```markdown
 version: "3.7"
 services:
  vaultwarden:
@@ -78,13 +79,14 @@ services:
    - "RUST_BACKTRACE=1"
   ports:
    - "8080:80"
+```
 
 
 # Enabling admin page
 ```console
 openssl rand -base64 48
 ```
-```markdown
+```console
 docker run -d --name vaultwarden -e ADMIN_TOKEN=LiDONkdWRbN9dVA6O7V76q5Q1GAie9MQ7ipTqJl9VE8xamZ6CBsx7/pwNR5SLRjr -v /vw-data/:/data/  -p 800:80  vaultwarden/server:latest
 ```
 
