@@ -49,7 +49,7 @@ RestartSec=2
 WantedBy=multi-user.target
 ```
 
-# as the working on this solution was done in spacing time so we terminate the ec2 to deduct the cost but to be ready if we asked to reinitita the soltuion we create terraform script as the below 
+# As work on this solution was done intermittently, we terminated the EC2 instance to reduce costs. However, to be prepared in case we need to reinitiate the solution, we created a Terraform script as shown below:
 
 
 ```console
